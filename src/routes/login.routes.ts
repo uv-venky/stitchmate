@@ -1,4 +1,4 @@
-import { withPublicRoute } from 'uv-core';
+import { withPublicRoute, optionalAuthenticateRequest, renderSidebar, type ServerTeam, escapeHtml } from 'uv-core';
 
 export const homeRoute = withPublicRoute(async () => {
   return new Response(null, {
@@ -7,72 +7,77 @@ export const homeRoute = withPublicRoute(async () => {
   });
 });
 
-function renderDashboardPage(): string {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stitchmate Dashboard</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
-    pre { background: #f1f5f9; padding: 1rem; border-radius: 0.5rem; overflow: auto; }
-    a, button { margin-right: 1rem; }
-  </style>
-</head>
-<body>
-  <h1>Stitchmate Dashboard</h1>
-  <p id="status">Loading...</p>
-  <pre id="data"></pre>
-  <button type="button" id="logout">Sign out</button>
-  <a href="/login">Back to login</a>
-  <script>
-    var tokenKey = 'uv_access_token';
-    var token = localStorage.getItem(tokenKey);
-    var statusEl = document.getElementById('status');
-    var dataEl = document.getElementById('data');
-
-    if (!token) {
-      window.location.href = '/login?sourceUrl=/dashboard';
-    } else {
-      fetch('/api/dashboard', {
-        headers: { Authorization: 'Bearer ' + token }
-      })
-        .then(function (response) {
-          if (!response.ok) throw new Error('Session expired');
-          return response.json();
-        })
-        .then(function (data) {
-          statusEl.textContent = 'Signed in as ' + data.userName;
-          dataEl.textContent = JSON.stringify(data, null, 2);
-        })
-        .catch(function () {
-          localStorage.removeItem(tokenKey);
-          window.location.href = '/login?sourceUrl=/dashboard';
-        });
-    }
-
-    document.getElementById('logout').addEventListener('click', function () {
-      var token = localStorage.getItem(tokenKey);
-      if (token) {
-        fetch('/api/auth/logout', {
-          method: 'POST',
-          headers: { Authorization: 'Bearer ' + token }
-        }).finally(function () {
-          localStorage.removeItem(tokenKey);
-          window.location.href = '/login';
-        });
-      } else {
-        window.location.href = '/login';
+// Configure sample server-side teams for Stitchmate matching core
+const serverTeams: ServerTeam[] = [
+  {
+    name: 'Stitchmate CC',
+    logo: 'admin',
+    teamPath: '/dashboard',
+    oneLevelNav: [
+      { title: 'Dashboard', pagePath: '', icon: 'default', roles: ['user', 'admin'] }
+    ],
+    modules: [
+      {
+        title: 'Management',
+        modulePath: '/admin',
+        pageGroups: [
+          {
+            title: 'Control',
+            groupPath: '',
+            icon: 'admin',
+            pages: [
+              { title: 'Settings', pagePath: '/settings', icon: 'settings', roles: ['admin', 'root'] }
+            ]
+          }
+        ]
       }
-    });
-  </script>
-</body>
-</html>`;
-}
+    ]
+  }
+];
 
-export const dashboardPageRoute = withPublicRoute(async () => {
-  return new Response(renderDashboardPage(), {
+export const dashboardPageRoute = withPublicRoute(async (req) => {
+  let auth = null;
+  try {
+    auth = await optionalAuthenticateRequest(req);
+  } catch (err) {
+    // Stale or invalid token
+  }
+
+  if (!auth) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: '/login?sourceUrl=/dashboard',
+        'Set-Cookie': 'uv_access_token=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT'
+      },
+    });
+  }
+
+  const { getUserTeams } = await import('uv-core');
+  const teams = await getUserTeams(auth.user, serverTeams);
+
+  const contentHtml = `
+    <div style="animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+      <h1 style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: -0.02em;">Stitchmate Dashboard</h1>
+      <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem;">Welcome back, ${escapeHtml(auth.user.displayName)}! You are logged in.</p>
+      
+      <div style="background: rgba(15, 23, 42, 0.45); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); padding: 2rem; border-radius: 12px; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);">
+        <h3 style="font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-white);">Active User Session</h3>
+        <pre style="margin-top: 1rem; color: #a5f3fc; font-family: monospace; font-size: 0.875rem; white-space: pre-wrap; background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);">${escapeHtml(JSON.stringify(auth.user, null, 2))}</pre>
+      </div>
+    </div>
+  `;
+
+  const html = renderSidebar({
+    activeTeam: teams[0] ?? null,
+    teams: teams,
+    activePath: '/dashboard',
+    user: auth.user,
+    brandName: 'Stitchmate',
+    contentHtml: contentHtml,
+  });
+
+  return new Response(html, {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
   });
 });
