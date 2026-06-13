@@ -1,0 +1,9 @@
+appId: 'stitchmate'
+dbUrl: ''
+secret: ''
+jwtExpiresIn: '1h'
+migrationsDir: './migrations'
+init:
+  admin:
+    email: 'admin@stitchmate.com'
+    password: 'changeme'
