@@ -5,5 +5,5 @@ jwtExpiresIn: '1h'
 migrationsDir: './migrations'
 init:
   admin:
-    email: 'admin@stitchmate.com'
+    email: 'admin@example.com'
     password: 'changeme'
