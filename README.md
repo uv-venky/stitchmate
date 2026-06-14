@@ -1,10 +1,10 @@
 # Stitchmate
 
-App repository using [uv-core v1.0.1](https://github.com/uv-venky/uv-core/releases/tag/v1.0.1) for auth, database, migrations, and logging.
+Next.js app using [uv-core](https://github.com/uv-venky/uv-core) for auth, database, migrations, UI components, and codegen.
 
-**No local clone of uv-core required** — it is installed from GitHub on `pnpm install`.
+**Single server** — one `pnpm dev` serves both the React UI and API routes (same pattern as metro-one-cop with core).
 
-## Setup (clone only this repo)
+## Setup
 
 ```bash
 git clone https://github.com/<your-org>/stitchmate.git
@@ -16,16 +16,20 @@ pnpm run migrate
 pnpm run dev
 ```
 
+Open [http://localhost:3000/app/uv-users](http://localhost:3000/app/uv-users)
+
 ## uv-core dependency
 
+For local uv-core development:
+
 ```json
-"uv-core": "github:uv-venky/uv-core#v1.0.1"
+"uv-core": "link:../uv-core"
 ```
 
-For local uv-core development (optional):
+For published uv-core:
 
 ```json
-"uv-core": "file:../uv-core"
+"uv-core": "github:uv-venky/uv-core#v1.0.19"
 ```
 
 ## Default login
@@ -33,18 +37,25 @@ For local uv-core development (optional):
 - Email: `admin@example.com`
 - Password: `changeme`
 
-## API routes
+## Key routes
 
-| Method | Path | Auth | Description |
-|--------|------|------|-------------|
-| GET | `/health` | No | Health check |
-| POST | `/api/auth/login` | No | Login |
-| POST | `/api/auth/logout` | Bearer | Logout |
-| GET | `/api/profile` | Bearer | Current user |
-| GET | `/api/dashboard` | Bearer | App dashboard |
-| GET | `/api/admin` | Bearer + admin/root | Admin route |
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/health` | Health check |
+| POST | `/api/auth/login` | Login |
+| POST | `/api/auth/logout` | Logout |
+| GET | `/api/profile` | Current user |
+| POST | `/api/action` | Server actions (env, config, etc.) |
+| POST | `/api/ds` | DataSource queries |
+| GET | `/login` | Login page |
+| GET | `/codegen` | Code generator (dev only) |
+| GET | `/app/uv-users` | Users page |
 
 ## Configuration
 
 - `config/default.yml` — `appId: stitchmate`
 - `.env` — `DATABASE_URL`, `JWT_SECRET`, `APP_ID`
+
+## Legacy
+
+The old split setup (`pnpm run server:legacy` + separate `frontend/` folder) is deprecated. Use `pnpm dev` only.
