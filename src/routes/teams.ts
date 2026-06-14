@@ -25,6 +25,28 @@ export const serverTeams: ServerTeam[] = [
           },
         ],
       },
+      {
+        title: 'App',
+        modulePath: '/app',
+        pageGroups: [
+          {
+            title: 'General',
+            groupPath: '',
+            icon: 'default',
+            pages: [
+              { title: 'Users', pagePath: '/uv-users', icon: 'default', roles: ['admin', 'root'] },
+            ],
+          },
+          {
+            title: 'Configuration',
+            groupPath: '/config',
+            icon: 'settings',
+            pages: [
+              { title: 'Roles', pagePath: '/uv-roles', icon: 'default', roles: ['admin', 'root'] },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];

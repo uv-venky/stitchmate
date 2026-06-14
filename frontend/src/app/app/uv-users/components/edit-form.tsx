@@ -5,7 +5,7 @@
 import { useCurrentRowSync } from '@/components/core/hooks/useStoreHooks';
 import { TextInput, DateInputField, NumberInput, BooleanInput } from '@/components/core/page/fields';
 import type { UVUsers } from '@/lib/common/ds/types/app/UVUsers.js';
-import type { Store } from 'uv-core/client';
+import type { StoreClass as Store } from 'uv-core/client';
 
 export default function UVUsersEditForm({ store }: { store: Store<UVUsers> }) {
   const row = useCurrentRowSync(store);

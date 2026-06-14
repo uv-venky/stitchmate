@@ -5,7 +5,7 @@
 import { useCurrentRowSync } from '@/components/core/hooks/useStoreHooks';
 import { DateInputField, TextInput } from '@/components/core/page/fields';
 import type { UVRoles } from '@/lib/common/ds/types/app/UVRoles.js';
-import type { Store } from 'uv-core/client';
+import type { StoreClass as Store } from 'uv-core/client';
 
 export default function UVRolesEditForm({ store }: { store: Store<UVRoles> }) {
   const row = useCurrentRowSync(store);

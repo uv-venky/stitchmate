@@ -7,7 +7,7 @@ import { useClientSession } from '@/components/core/session-context';
 import { createActionsColumn, type TableAction } from '@/components/core/table/actions-column-def';
 import { Pencil } from 'lucide-react';
 import type { UVRoles } from '@/lib/common/ds/types/app/UVRoles.js';
-import type { Store } from 'uv-core/client';
+import type { StoreClass as Store } from 'uv-core/client';
 import type { AccessorKeyColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 

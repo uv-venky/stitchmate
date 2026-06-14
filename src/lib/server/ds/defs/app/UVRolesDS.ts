@@ -2,7 +2,7 @@
 
 import type { TableDataSource } from 'uv-core';
 import { DefaultAttribute, DefaultDataSource, DefaultFullAccess } from 'uv-core';
-import type { UVRoles } from '../../../common/ds/types/app/UVRoles.js';
+import type { UVRoles } from '../../../../common/ds/types/app/UVRoles.js';
 
 export const UVRolesDS: TableDataSource<UVRoles> = {
   ...DefaultDataSource,
