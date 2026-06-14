@@ -18,8 +18,8 @@ importers:
         specifier: 13.1.3
         version: 13.1.3
       uv-core:
-        specifier: github:uv-venky/uv-core#v1.0.8
-        version: https://codeload.github.com/uv-venky/uv-core/tar.gz/94b570cda7446a190fd60c610ab7f39fb6f079f2(pino-pretty@13.1.3)(pino@10.3.1)
+        specifier: github:uv-venky/uv-core#v1.0.16
+        version: https://codeload.github.com/uv-venky/uv-core/tar.gz/a996b8da354954687cd39e89aa226d9c9c3b935e(pino-pretty@13.1.3)(pino@10.3.1)
     devDependencies:
       '@types/node':
         specifier: 25.9.1
@@ -233,6 +233,9 @@ packages:
   fast-copy@4.0.3:
     resolution: {integrity: sha512-58apWr0GUiDFM8+3afrO6eYwJBn9ZAhDOzG3L+/9llab/haCARS2UIfffmOurYLwbgDRs8n0rfr6qAAPEAuAQw==}
 
+  fast-json-stable-stringify@2.1.0:
+    resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
+
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
@@ -363,6 +366,9 @@ packages:
   process-warning@5.0.0:
     resolution: {integrity: sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==}
 
+  proxy-compare@3.0.1:
+    resolution: {integrity: sha512-V9plBAt3qjMlS1+nC8771KNf6oJ12gExvaxnNzN/9yVRLdTv/lc+oJlnSzrdYDAvBfTStPCoiaCOTmTs0adv7Q==}
+
   pump@3.0.4:
     resolution: {integrity: sha512-VS7sjc6KR7e1ukRFhQSY5LM2uBWAUPiOPa/A3mkKmiMwSmRFUITt0xuj+/lesgnCv+dPIEYlkzrcyXgquIHMcA==}
 
@@ -431,15 +437,27 @@ packages:
   undici-types@7.24.6:
     resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
 
-  uv-core@https://codeload.github.com/uv-venky/uv-core/tar.gz/94b570cda7446a190fd60c610ab7f39fb6f079f2:
-    resolution: {gitHosted: true, integrity: sha512-eC4Xg22MNlzRCPA7YLwwmuwYOgQLi9pCJHRJwsGMTgFkOirP5Vxt4xZX6rO7XiH8rbEsvzq+0YA8hL6IcZ8p/g==, tarball: https://codeload.github.com/uv-venky/uv-core/tar.gz/94b570cda7446a190fd60c610ab7f39fb6f079f2}
-    version: 1.0.8
+  uv-core@https://codeload.github.com/uv-venky/uv-core/tar.gz/a996b8da354954687cd39e89aa226d9c9c3b935e:
+    resolution: {gitHosted: true, integrity: sha512-Q2ITuX1n3FHVTHUKonE73alMCrSlqQTvQ6QXtlU5EFr5avPlEcTwsvYed0LtPjFjzxE3xVh0GunKAPNUUEZeLg==, tarball: https://codeload.github.com/uv-venky/uv-core/tar.gz/a996b8da354954687cd39e89aa226d9c9c3b935e}
+    version: 1.0.16
     engines: {node: '>=24.13.0'}
     peerDependencies:
       pino: 10.3.1
       pino-pretty: 13.1.3
     peerDependenciesMeta:
       pino-pretty:
+        optional: true
+
+  valtio@2.3.2:
+    resolution: {integrity: sha512-YXhWQei9IN/ZDce9rhL3trCq9+vVq8M1gWmKVdP3YSZ2gxsmmNWVbxXwf9yG6ffu/dAvAD91nevg8xirGr4Dhg==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      react: '>=18.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
         optional: true
 
   wrappy@1.0.2:
@@ -591,6 +609,8 @@ snapshots:
 
   fast-copy@4.0.3: {}
 
+  fast-json-stable-stringify@2.1.0: {}
+
   fast-safe-stringify@2.1.1: {}
 
   fsevents@2.3.3:
@@ -735,6 +755,8 @@ snapshots:
 
   process-warning@5.0.0: {}
 
+  proxy-compare@3.0.1: {}
+
   pump@3.0.4:
     dependencies:
       end-of-stream: 1.4.5
@@ -785,21 +807,30 @@ snapshots:
 
   undici-types@7.24.6: {}
 
-  uv-core@https://codeload.github.com/uv-venky/uv-core/tar.gz/94b570cda7446a190fd60c610ab7f39fb6f079f2(pino-pretty@13.1.3)(pino@10.3.1):
+  uv-core@https://codeload.github.com/uv-venky/uv-core/tar.gz/a996b8da354954687cd39e89aa226d9c9c3b935e(pino-pretty@13.1.3)(pino@10.3.1):
     dependencies:
       bcrypt-ts: 8.0.1
       dotenv: 17.4.2
+      fast-json-stable-stringify: 2.1.0
       js-yaml: 4.1.1
       jsonwebtoken: 9.0.3
       pg: 8.21.0
       pino: 10.3.1
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
+      valtio: 2.3.2(react@19.2.6)
       zod: 4.4.3
     optionalDependencies:
       pino-pretty: 13.1.3
     transitivePeerDependencies:
+      - '@types/react'
       - pg-native
+
+  valtio@2.3.2(react@19.2.6):
+    dependencies:
+      proxy-compare: 3.0.1
+    optionalDependencies:
+      react: 19.2.6
 
   wrappy@1.0.2: {}
 

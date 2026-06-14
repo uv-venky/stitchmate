@@ -1,4 +1,5 @@
-import { withPublicRoute, optionalAuthenticateRequest, renderSidebar, type ServerTeam, escapeHtml } from 'uv-core';
+import { withPublicRoute, optionalAuthenticateRequest, renderSidebar, escapeHtml } from 'uv-core';
+import { serverTeams } from './teams.js';
 
 export const homeRoute = withPublicRoute(async () => {
   return new Response(null, {
@@ -6,34 +7,6 @@ export const homeRoute = withPublicRoute(async () => {
     headers: { Location: '/login' },
   });
 });
-
-// Configure sample server-side teams for Stitchmate matching core
-const serverTeams: ServerTeam[] = [
-  {
-    name: 'Stitchmate CC',
-    logo: 'admin',
-    teamPath: '/dashboard',
-    oneLevelNav: [
-      { title: 'Dashboard', pagePath: '', icon: 'default', roles: ['user', 'admin'] }
-    ],
-    modules: [
-      {
-        title: 'Management',
-        modulePath: '/admin',
-        pageGroups: [
-          {
-            title: 'Control',
-            groupPath: '',
-            icon: 'admin',
-            pages: [
-              { title: 'Settings', pagePath: '/settings', icon: 'settings', roles: ['admin', 'root'] }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
 
 export const dashboardPageRoute = withPublicRoute(async (req) => {
   let auth = null;
