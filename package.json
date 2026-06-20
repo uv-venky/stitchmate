@@ -30,15 +30,19 @@
     "react-dom": "^19.0.0",
     "react-scan": "^0.5.6",
     "tinycolor2": "^1.6.0",
-    "uv-core": "link:../uv-core"
+    "uv-core": "github:uv-venky/uv-core#v1.1.4"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/tinycolor2": "^1.4.6",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "tsx": "4.22.3",
     "typescript": "^5"
   }

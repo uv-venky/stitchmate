@@ -24,35 +24,35 @@
     ],
     "paths": {
       "@/components/core/*": [
-        "./node_modules/uv-core/src/components/core/*"
+        "./node_modules/uv-core/dist/components/core/*"
       ],
       "@/components/ui/*": [
-        "./node_modules/uv-core/src/components/ui/*"
+        "./node_modules/uv-core/dist/components/ui/*"
       ],
       "@/components/sidebar/*": [
-        "./node_modules/uv-core/src/components/sidebar/*"
+        "./node_modules/uv-core/dist/components/sidebar/*"
       ],
       "@/components/*": [
         "./src/components/*",
-        "./node_modules/uv-core/src/components/*"
+        "./node_modules/uv-core/dist/components/*"
       ],
       "@/hooks/*": [
         "./src/hooks/*",
-        "./node_modules/uv-core/src/hooks/*"
+        "./node_modules/uv-core/dist/hooks/*"
       ],
       "@/app/*": [
         "./src/app/*",
-        "./node_modules/uv-core/src/app/*"
+        "./node_modules/uv-core/dist/app/*"
       ],
       "@/plugins/*": [
         "./src/plugins/*",
-        "./node_modules/uv-core/src/plugins/*"
+        "./node_modules/uv-core/dist/plugins/*"
       ],
       "@/lib/common/*": [
-        "./node_modules/uv-core/src/lib/common/*"
+        "./node_modules/uv-core/dist/lib/common/*"
       ],
       "@/lib/*": [
-        "./node_modules/uv-core/src/lib/*",
+        "./node_modules/uv-core/dist/lib/*",
         "./src/lib/*"
       ],
       "@/*": [

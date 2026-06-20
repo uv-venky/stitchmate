@@ -3,4 +3,7 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 
+overrides:
+  uv-core: link:../uv-core
+
 packages: []
